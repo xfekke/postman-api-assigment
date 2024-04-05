@@ -16,13 +16,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install Node.js
+    # - name: Install Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '16'
 
-    - name: Install Newman
-      run: npm install -g newman
+    # - name: Install Newman
+    #   run: npm install -g newman
 
     - name: Run Postman Tests
       run: newman run ./testpostman.json
