@@ -1,0 +1,11 @@
+{
+  "name": "postman-api-assigment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run testpostman.json"
+  },
+  "author": "",
+  "license": "ISC"
+}
