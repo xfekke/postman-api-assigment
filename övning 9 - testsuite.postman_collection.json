@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "7a52fe24-1a81-4a52-a677-9fe7674de765",
+		"name": "övning 9 / testsuite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33841366",
+		"_collection_link": "https://gold-firefly-601719.postman.co/workspace/CatAPI~06e8d1cb-453c-4a10-95c4-55f1c6a17b98/collection/33841366-7a52fe24-1a81-4a52-a677-9fe7674de765?action=share&source=collection_link&creator=33841366"
+	},
+	"item": [
+		{
+			"name": "one random cat pic",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 400ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is:\", function () {\r",
+							"    var responseTime = pm.response.responseTime;\r",
+							"    console.log(\"The response time is: \" + responseTime + \" ms\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/images/search",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"images",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "response time",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 400ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is:\", function () {\r",
+							"    var responseTime = pm.response.responseTime;\r",
+							"    console.log(\"The response time is: \" + responseTime + \" ms\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/images/search",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"images",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "diff in breeds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Custom testskript (Svår): Skriv Custom JavaScript-testskript i Postman för att utföra avancerade tester, som att jämföra egenskaperna hos två kattraser och verifiera att de skiljer sig åt på specificerade sätt. Använd assertions för att validera resultaten.\r",
+							"var breedResponse = pm.response.json();\r",
+							"\r",
+							"var breed1 = breedResponse[0];\r",
+							"var breed2 = breedResponse[1];\r",
+							"\r",
+							"pm.test(\"Verify difference in properties between 2 breeds\", function () {\r",
+							"    pm.expect(breed1.id).to.not.eql(breed2.id);\r",
+							"    pm.expect(breed1.name).to.not.eql(breed2.name);\r",
+							"    pm.expect(breed1.temperament).to.not.eql(breed2.temperament);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/breeds",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"breeds"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
