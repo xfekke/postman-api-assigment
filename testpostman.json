@@ -708,14 +708,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "övning 9",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
 		}
 	]
 }
