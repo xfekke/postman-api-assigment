@@ -1,10 +1,10 @@
 {
 	"info": {
 		"_postman_id": "7a52fe24-1a81-4a52-a677-9fe7674de765",
-		"name": "övning 9 / testsuite",
+		"name": "Automatisk övning 09 / testsuite",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33841366",
-		"_collection_link": "https://gold-firefly-601719.postman.co/workspace/CatAPI~06e8d1cb-453c-4a10-95c4-55f1c6a17b98/collection/33841366-7a52fe24-1a81-4a52-a677-9fe7674de765?action=share&source=collection_link&creator=33841366"
+		"_exporter_id": "33840919",
+		"_collection_link": "https://gold-firefly-601719.postman.co/workspace/CatAPI~06e8d1cb-453c-4a10-95c4-55f1c6a17b98/collection/33841366-7a52fe24-1a81-4a52-a677-9fe7674de765?action=share&source=collection_link&creator=33840919"
 	},
 	"item": [
 		{
@@ -55,6 +55,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"\r",
 							"pm.test(\"Response time is less than 400ms\", function () {\r",
 							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
 							"});\r",
@@ -97,6 +98,10 @@
 					"script": {
 						"exec": [
 							"// Custom testskript (Svår): Skriv Custom JavaScript-testskript i Postman för att utföra avancerade tester, som att jämföra egenskaperna hos två kattraser och verifiera att de skiljer sig åt på specificerade sätt. Använd assertions för att validera resultaten.\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
 							"var breedResponse = pm.response.json();\r",
 							"\r",
 							"var breed1 = breedResponse[0];\r",
@@ -129,6 +134,586 @@
 						"breeds"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "övning 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 400ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is:\", function () {\r",
+							"    var responseTime = pm.response.responseTime;\r",
+							"    console.log(\"The response time is: \" + responseTime + \" ms\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/images/search",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"images",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "övning 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Content-Type is present', function () {\r",
+							"    pm.response.to.have.header('content-type');\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Content-Type includes url\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/images/search",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"images",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fekke övning 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Data consistency (Medium): Skriv ett automatiserat test för att hämta en lista över kattraser och skicka sedan individuella GET-requests för att få uppgifter på varje ras baserat på deras ras-ID. Verifiera att data överensstämmer mellan listan och de enskilda detaljerna med hjälp av assertions.\r",
+							"\r",
+							"    let breedsList = pm.response.json();\r",
+							"\r",
+							"    breedsList.forEach(function(breed) {\r",
+							"\r",
+							"        pm.sendRequest({\r",
+							"            url: 'https://api.thecatapi.com/v1/breeds/' + breed.id,\r",
+							"            method: 'GET'\r",
+							"        }, function (err, res) {\r",
+							"            if (err) {\r",
+							"                console.error(err);\r",
+							"                return;\r",
+							"            }\r",
+							"\r",
+							"            pm.test(\"Verify breed details for \" + breed.name, function () {\r",
+							"                pm.expect(res.json().name).to.eql(breed.name);\r",
+							"                pm.expect(res.json().origin).to.eql(breed.origin);\r",
+							"                pm.expect(res.json().indoor).to.eql(breed.indoor);\r",
+							"            });\r",
+							"        });\r",
+							"    });"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/breeds",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"breeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sykeet övning 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let breeds = pm.response.json();",
+							"let breedIds = breeds.map(breed => breed.id);",
+							"",
+							"breedIds.forEach(breedId => {",
+							"    pm.sendRequest(`https://api.thecatapi.com/v1/breeds/${breedId}`, (error, response) => {",
+							"        pm.test(`Data consistency check for breed ID: ${breedId}`, () => {",
+							"            pm.expect(error).to.not.be.ok;",
+							"            pm.expect(response).to.have.status(200);",
+							"",
+							"            let breedDetail = response.json();",
+							"            let breedListDetail = breeds.find(breed => breed.id === breedId);",
+							"",
+							"            pm.expect(breedDetail.name).to.eql(breedListDetail.name);",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "live_EXbE91gTUmUEBCpyvc90Rn4NJP4Qt3IBef68w9x6Z32feIU6dBQEubszN26SHHqq",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/breeds",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"breeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "övning 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kedjerequests (medium): Skriv ett automatiserat test för att koppla flera API-requests, som att hämta ett ras-ID baserat på dess namn och sedan använda det ID:t för att hämta en specifik bild för just den rasen. Verifiera att svaren för båda requesten innehåller rätt data med hjälp av assertions.\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that breed ID exists\", function () {\r",
+							"    var responseData = pm.response.json();\r",
+							"    pm.expect(responseData[0].id).to.exist;\r",
+							"    console.log(\"Rasens ID är \" + responseData[0].id);\r",
+							"    pm.environment.set(\"tempID\", responseData[0].id)\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/breeds/search?q=Abyssinian",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"breeds",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Abyssinian"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "övning 3.2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kedjerequests (medium): Skriv ett automatiserat test för att koppla flera API-requests, som att hämta ett ras-ID baserat på dess namn och sedan använda det ID:t för att hämta en specifik bild för just den rasen. Verifiera att svaren för båda requesten innehåller rätt data med hjälp av assertions.\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that picture exists\", function () {\r",
+							"    var responseData = pm.response.json();\r",
+							"    pm.expect(responseData[0].url).to.exist;\r",
+							"    console.log(\"Picture is at \" + responseData[0].url);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/images/search?breed_ids={{tempID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"images",
+						"search"
+					],
+					"query": [
+						{
+							"key": "breed_ids",
+							"value": "{{tempID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "övning 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"    let breeds = pm.response.json();\r",
+							"\r",
+							"    breeds.forEach(function(breed) {\r",
+							"        pm.sendRequest({\r",
+							"            url: 'https://api.thecatapi.com/v1/images/search?breed_ids=' + breed.id,\r",
+							"            method: 'GET'\r",
+							"        }, function (err, res) {\r",
+							"            if (err) {\r",
+							"                console.error(err);\r",
+							"                return;\r",
+							"            }\r",
+							"\r",
+							"            let imageResponse = res.json();\r",
+							"            if (imageResponse.length > 0) {\r",
+							"                let imageUrl = imageResponse[0].url;\r",
+							"\r",
+							"                pm.test(\"Image URL exists for breed \" + breed.id, function () {\r",
+							"                    pm.expect(imageUrl).to.be.ok;\r",
+							"                    console.log(\"Log \" + \" \" + imageUrl + \" \" + imageResponse[0].id);\r",
+							"                });\r",
+							"            }\r",
+							"        });\r",
+							"    });"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/breeds",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"breeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "övning 6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Negativ testning (Svår): Skriv ett automatiserat test för att identifiera edge cases och oväntat beteende när du skickar förfrågningar med ogiltig inmatning, som extremt långa rasnamn eller specialtecken. Verifiera att API:et returnerar lämpliga felmeddelanden och statuskoder med hjälp av assertions.\r",
+							"\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Error message is returned\", function () {\r",
+							"    var responseData = pm.response.json();\r",
+							"    pm.expect(responseData.message).to.exist;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/breed_ids/!?!!!X+d?",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"breed_ids",
+						"!"
+					],
+					"query": [
+						{
+							"key": "!!!X+d?",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "övning 7",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Startar processen för att hämta raser.');\r",
+							"\r",
+							"function getBreeds() {\r",
+							"    console.log('Hämtar lista över raser...');\r",
+							"    return new Promise((resolve, reject) => {\r",
+							"        pm.sendRequest({\r",
+							"            url: 'https://api.thecatapi.com/v1/breeds',\r",
+							"            method: 'GET',\r",
+							"        }, (err, res) => {\r",
+							"            if (err) {\r",
+							"                console.error('Misslyckades med att hämta raser:', err);\r",
+							"                reject(err);\r",
+							"            } else {\r",
+							"                console.log('Raser hämtades framgångsrikt.');\r",
+							"                resolve(res.json());\r",
+							"            }\r",
+							"        });\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"function getImageForBreed(breed) {\r",
+							"    console.log(`Hämtar bild för rasen: ${breed.name}`);\r",
+							"    return new Promise((resolve, reject) => {\r",
+							"        pm.sendRequest({\r",
+							"            url: `https://api.thecatapi.com/v1/images/search?breed_id=${breed.id}&limit=1`,\r",
+							"            method: 'GET',\r",
+							"        }, (error, response) => {\r",
+							"            if (error) {\r",
+							"                console.error(`Misslyckades med att hämta bild för rasen ${breed.name}:`, error);\r",
+							"                pm.test(`Request failed for breed_id ${breed.id}`, () => {\r",
+							"                    pm.expect.fail(`Error: ${error.message}`);\r",
+							"                });\r",
+							"                reject(error);\r",
+							"            } else {\r",
+							"                const jsonData = response.json();\r",
+							"                pm.test(`Bild-URL ska finnas för rasen ${breed.name}`, () => {\r",
+							"                    pm.expect(response).to.have.status(200);\r",
+							"                    pm.expect(jsonData).to.be.an('array').that.is.not.empty;\r",
+							"                    const imageData = jsonData[0];\r",
+							"                    if (imageData && imageData.url) {\r",
+							"                        console.log(`Bild för rasen ${breed.name} hittades: ${imageData.url}`);\r",
+							"                        resolve(imageData.url);\r",
+							"                    } else {\r",
+							"                        console.log(`Ingen bild hittades för rasen ${breed.name}.`);\r",
+							"                        pm.expect.fail('No image URL in response');\r",
+							"                        reject(new Error(`No image URL found for breed_id ${breed.id}`));\r",
+							"                    }\r",
+							"                });\r",
+							"            }\r",
+							"        });\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"getBreeds().then(breeds => {\r",
+							"    console.log(`Hämtade ${breeds.length} raser, börjar hämta bilder...`);\r",
+							"    breeds.forEach(breed => console.log(`Ras-ID för ${breed.name}: ${breed.id}`));\r",
+							"    return Promise.all(breeds.map(breed => {\r",
+							"        if (breed.id) {\r",
+							"            return getImageForBreed(breed);\r",
+							"        } else {\r",
+							"            console.log(`Inget ras-ID för ${breed.name}, kan inte hämta bild.`);\r",
+							"            return Promise.resolve(null);\r",
+							"        }\r",
+							"    }));\r",
+							"}).then(urls => {\r",
+							"    console.log('Alla bilder har hämtats.');\r",
+							"    urls.forEach(url => {\r",
+							"        if (url) {\r",
+							"            console.log('Bild-URL:', url);\r",
+							"        } else {\r",
+							"            console.log('En bild-URL saknas i svaret.');\r",
+							"        }\r",
+							"    });\r",
+							"}).catch(error => {\r",
+							"    console.error('Ett fel uppstod under processen:', error);\r",
+							"    pm.test(\"Alla förfrågningar ska slutföras utan fel\", () => {\r",
+							"        pm.expect.fail(`Error: ${error.message}`);\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "live_EXbE91gTUmUEBCpyvc90Rn4NJP4Qt3IBef68w9x6Z32feIU6dBQEubszN26SHHqq",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/breeds",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"breeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "övning 8",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Custom testskript (Svår): Skriv Custom JavaScript-testskript i Postman för att utföra avancerade tester, som att jämföra egenskaperna hos två kattraser och verifiera att de skiljer sig åt på specificerade sätt. Använd assertions för att validera resultaten.\r",
+							"var breedResponse = pm.response.json();\r",
+							"\r",
+							"var breed1 = breedResponse[0];\r",
+							"var breed2 = breedResponse[1];\r",
+							"\r",
+							"pm.test(\"Verify difference in properties between 2 breeds\", function () {\r",
+							"    pm.expect(breed1.id).to.not.eql(breed2.id);\r",
+							"    pm.expect(breed1.name).to.not.eql(breed2.name);\r",
+							"    pm.expect(breed1.temperament).to.not.eql(breed2.temperament);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.thecatapi.com/v1/breeds",
+					"protocol": "https",
+					"host": [
+						"api",
+						"thecatapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"breeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "övning 9",
+			"request": {
+				"method": "GET",
+				"header": []
 			},
 			"response": []
 		}
